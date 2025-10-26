@@ -7,8 +7,6 @@ using namespace solum;
 Expr::Expr(ExprType exprType)
 	: SolumObj("Expr"), exprType(move(exprType)) {
 }
-solum::Expr::~Expr() {
-}
 ExprType Expr::getExprType() const {
 	return exprType;
 }
@@ -20,8 +18,6 @@ string Expr::asStyledString() const {
 CstExpr::CstExpr(Value value)
 	: Expr(ExprType::CST), value(move(value)) {
 }
-CstExpr::~CstExpr() {
-}
 Value CstExpr::getValue() const {
 	return value;
 }
@@ -32,8 +28,6 @@ string CstExpr::asStyledString() const {
 // VarExpr Implementation
 VarExpr::VarExpr(Value id)
 	: Expr(ExprType::VAR), id(move(id)) {
-}
-VarExpr::~VarExpr() {
 }
 Value VarExpr::getId() const {
 	return id;
@@ -49,8 +43,6 @@ AssignExpr::AssignExpr(unique_ptr<Expr> lhs, unique_ptr<Expr> rhs)
 		throw invalid_argument("AssignExpr constructor received null pointer");
 	}
 }
-AssignExpr::~AssignExpr() {
-}
 const Expr& AssignExpr::getLhs() const {
 	return *lhs;
 }
@@ -64,11 +56,9 @@ string AssignExpr::asStyledString() const {
 // FDefExpr Implementation
 FDefExpr::FDefExpr(vector<unique_ptr<VarExpr>> params, vector<unique_ptr<Expr>> body)
 	: Expr(ExprType::OPR_FDEF), params(move(params)), body(move(body)) {
-	if (body.empty()) {
+	if (this->body.empty()) {
 		throw invalid_argument("FDefExpr constructor received empty body");
 	}
-}
-FDefExpr::~FDefExpr() {
 }
 vector<VarExpr*> FDefExpr::getParams() const {
 	vector<VarExpr*> paramPtrs;
@@ -111,8 +101,6 @@ FCallExpr::FCallExpr(unique_ptr<Expr> func, vector<unique_ptr<Expr>> args)
 		throw invalid_argument("FCallExpr constructor received null pointer for func");
 	}
 }
-FCallExpr::~FCallExpr() {
-}
 const Expr& FCallExpr::getFunc() const {
 	return *func;
 }
@@ -142,8 +130,6 @@ JmpExpr::JmpExpr(unique_ptr<Expr> target)
 		throw invalid_argument("JmpExpr constructor received null pointer for target");
 	}
 }
-JmpExpr::~JmpExpr() {
-}
 const Expr& JmpExpr::getTarget() const {
 	return *target;
 }
@@ -157,8 +143,6 @@ CJmpExpr::CJmpExpr(unique_ptr<Expr> condition, unique_ptr<Expr> target)
 	if (this->condition == nullptr || this->target == nullptr) {
 		throw invalid_argument("CJmpExpr constructor received null pointer");
 	}
-}
-CJmpExpr::~CJmpExpr() {
 }
 const Expr& CJmpExpr::getCondition() const {
 	return *condition;
@@ -176,8 +160,6 @@ IdxExpr::IdxExpr(unique_ptr<Expr> base, unique_ptr<Expr> index)
 	if (this->base == nullptr || this->index == nullptr) {
 		throw invalid_argument("IdxExpr constructor received null pointer");
 	}
-}
-IdxExpr::~IdxExpr() {
 }
 const Expr& IdxExpr::getBase() const {
 	return *base;

@@ -149,9 +149,6 @@
     <ProjectReference Include="..\Core\Core.vcxproj">
       <Project>{7b5894d7-4da8-4eed-b40c-cbfc9712de7f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Parser\Parser.vcxproj">
-      <Project>{68e8d0e6-ed32-49f6-9379-92642589bc5b}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\Solum\Solum.vcxproj">
       <Project>{49447f63-e8da-4b76-9656-02e1d00cdcf3}</Project>
     </ProjectReference>
